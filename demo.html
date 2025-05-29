@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>産業保健師訪問記録 Office365活用デモ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #0078d4, #00bcf2);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0078d4, #106ebe);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 16px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #495057;
+            transition: all 0.3s;
+        }
+        
+        .nav-tab.active {
+            color: #0078d4;
+            background: white;
+            font-weight: 600;
+            border-bottom: 3px solid #0078d4;
+        }
+        
+        .nav-tab:hover {
+            background: #e9ecef;
+            color: #0078d4;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 産業保健師訪問記録 & Office365活用デモ</h1>
+            <p>株式会社テックソリューションズ - 2025年5月30日訪問</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab(0)">📝 元の記録</button>
+            <button class="nav-tab" onclick="showTab(1)">🤖 Copilot分析</button>
+            <button class="nav-tab" onclick="showTab(2)">📊 Power BI</button>
+            <button class="nav-tab" onclick="showTab(3)">⚡ 自動化</button>
+            <button class="nav-tab" onclick="showTab(4)">👥 Teams</button>
+        </div>
+        
+       <div class="tab-content active">
+            <style>
+                .info-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 15px;
+                    margin: 20px 0;
+                }
+                
+                .info-card {
+                    background: #f8f9fa;
+                    border: 1px solid #e9ecef;
+                    border-left: 4px solid #0078d4;
+                    border-radius: 8px;
+                    padding: 20px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                }
+                
+                .info-card h4 {
+                    color: #0078d4;
+                    margin-bottom: 10px;
+                    font-size: 16px;
+                }
+                
+                .activity-section {
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin: 15px 0;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                }
+                
+                .activity-section h3 {
+                    color: #0078d4;
+                    border-bottom: 2px solid #e9ecef;
+                    padding-bottom: 10px;
+                    margin-bottom: 15px;
+                }
+                
+                .highlight {
+                    background: #fff3cd;
+                    border-left: 4px solid #ffc107;
+                    padding: 10px;
+                    margin: 10px 0;
+                    border-radius: 4px;
+                }
+                
+                .urgent-mark {
+                    color: #dc3545;
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+            </style>
+            
+            <h2>📝 元の訪問記録（Word文書形式）</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>📅 訪問日</h4>
+                    <p>2025年5月30日（金）</p>
+                </div>
+                <div class="info-card">
+                    <h4>🕘 訪問時間</h4>
+                    <p>09:00 - 16:00（7時間）</p>
+                </div>
+                <div class="info-card">
+                    <h4>👤 企業側担当者</h4>
+                    <p>人事部 田中部長</p>
+                </div>
+                <div class="info-card">
+                    <h4>👩‍⚕️ 当方担当者</h4>
+                    <p>山田保健師</p>
+                </div>
+            </div>
+            
+            <div class="activity-section">
+                <h3>【活動1：個別面談】09:30 - 11:30 （120分）</h3>
+                <p><strong>対象者:</strong> システム開発部 佐藤主任、営業部 鈴木課長、総務部 高橋係長</p>
+                
+                <div class="highlight">
+                    <strong>佐藤主任（システム開発部）:</strong><br>
+                    長時間のVDT作業により眼精疲労と肩こりが慢性化。最近は頭痛も頻発し、集中力の低下を訴える。
+                    休憩時間の確保が困難で、昼食も机で済ませることが多い。
+                    <span class="urgent-mark">★ 緊急度：高</span>
+                </div>
+                
+                <div class="highlight">
+                    <strong>鈴木課長（営業部）:</strong><br>
+                    出張が多く不規則な生活で血圧上昇（150/95mmHg）。ストレス性の胃炎症状もあり、
+                    家族からも心配されている状況。産業医面談が必要と判断。
+                    <span class="urgent-mark">★ 緊急度：高</span>
+                </div>
+                
+                <p><strong>高橋係長（総務部）:</strong><br>
+                職場の人間関係でストレスを感じており、不眠傾向。最近は朝起きるのが辛く、仕事への意欲低下も見られる。</p>
+            </div>
+            
+            <div class="activity-section">
+                <h3>【活動2：職場巡視】13:00 - 14:30 （90分）</h3>
+                <p><strong>対象エリア:</strong> システム開発フロア、サーバールーム</p>
+                <p><strong>参加者:</strong> システム開発部 部長、施設管理担当者 計2名</p>
+                
+                <h4 style="color: #dc3545; margin-top: 15px;">発見された課題:</h4>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>開発フロアの照度が300lux程度と不足気味（モニター反射による眼精疲労の一因）</li>
+                    <li>空調の風向きが一部デスクに直撃しており、体調不良の原因となっている可能性</li>
+                    <li>エルゴノミクス対応の椅子やモニターアームの導入が一部にとどまっている</li>
+                    <li>サーバールームの騒音レベルが高く（85dB程度）、近くで作業する職員への影響が懸念される</li>
+                </ul>
+            </div>
+            
+            <div class="activity-section">
+                <h3>【活動3：健康教育】14:45 - 15:45 （60分）</h3>
+                <p><strong>テーマ:</strong> VDT作業における健康管理</p>
+                <p><strong>参加者:</strong> 全社希望者32名</p>
+                <p><strong>実施場所:</strong> 会議室A</p>
+                
+                <h4 style="color: #28a745; margin-top: 15px;">教育内容:</h4>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>20-20-20ルール（20分毎に20秒間20フィート先を見る）</li>
+                    <li>正しい座位姿勢の維持方法</li>
+                    <li>VDT作業時の効果的なストレッチ体操</li>
+                    <li>目の疲労軽減テクニック</li>
+                </ul>
+                
+                <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>📊 参加者の反応:</strong><br>
+                    質疑応答では姿勢・目の疲れに関する質問が多数。「実践してみます」との前向きな声が多数。<br>
+                    <strong style="color: #28a745;">満足度アンケート結果: 4.3/5.0点</strong>
+                </div>
+            </div>
+        </div>        
+        <div class="tab-content">
+            <style>
+                .priority-urgent {
+                    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+                    border-left: 6px solid #dc3545;
+                    border-radius: 10px;
+                    padding: 25px;
+                    margin: 20px 0;
+                    box-shadow: 0 4px 12px rgba(220,53,69,0.15);
+                }
+                
+                .priority-medium {
+                    background: linear-gradient(135deg, #fff8e1, #fff3cd);
+                    border-left: 6px solid #ffc107;
+                    border-radius: 10px;
+                    padding: 25px;
+                    margin: 20px 0;
+                    box-shadow: 0 4px 12px rgba(255,193,7,0.15);
+                }
+                
+                .priority-low {
+                    background: linear-gradient(135deg, #e8f5e8, #c8e6c8);
+                    border-left: 6px solid #28a745;
+                    border-radius: 10px;
+                    padding: 25px;
+                    margin: 20px 0;
+                    box-shadow: 0 4px 12px rgba(40,167,69,0.15);
+                }
+                
+                .action-item {
+                    background: white;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 15px 0;
+                    border: 1px solid rgba(0,0,0,0.1);
+                }
+                
+                .evaluation-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    background: white;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                }
+                
+                .evaluation-table th,
+                .evaluation-table td {
+                    padding: 12px 15px;
+                    text-align: left;
+                    border-bottom: 1px solid #e9ecef;
+                }
+                
+                .evaluation-table th {
+                    background: #0078d4;
+                    color: white;
+                    font-weight: 600;
+                }
+                
+                .evaluation-table tr:hover {
+                    background: #f8f9fa;
+                }
+                
+                .score-good { color: #28a745; font-weight: bold; }
+                .score-warning { color: #ffc107; font-weight: bold; }
+                .score-bad { color: #dc3545; font-weight: bold; }
+            </style>
+            
+            <h2>🤖 Microsoft Copilot AI分析結果</h2>
+            <p style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 15px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                <strong>🤖 AI分析:</strong> この訪問記録をCopilotが自動分析し、重要度別に課題を整理・提案
+            </p>
+            
+            <div class="priority-urgent">
+                <h3 style="color: #dc3545; margin-bottom: 20px;">🔴 緊急対応必要（★★★）</h3>
+                
+                <div class="action-item">
+                    <h4 style="color: #dc3545;">血圧管理緊急案件</h4>
+                    <p><strong>対象:</strong> 鈴木課長</p>
+                    <p><strong>血圧値:</strong> 150/95mmHg（基準値140/90超過）</p>
+                    <p><strong>症状:</strong> ストレス性胃炎併発</p>
+                    <p><strong>🎯 推奨アクション:</strong></p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>産業医面談を1週間以内に実施</li>
+                        <li>生活習慣指導の開始</li>
+                        <li>必要に応じて医療機関紹介</li>
+                    </ul>
+                </div>
+                
+                <div class="action-item">
+                    <h4 style="color: #dc3545;">VDT症候群重症化</h4>
+                    <p><strong>対象:</strong> 佐藤主任</p>
+                    <p><strong>症状:</strong> 眼精疲労 + 慢性頭痛 + 集中力低下</p>
+                    <p><strong>業務影響:</strong> 生産性低下の兆候</p>
+                    <p><strong>🎯 推奨アクション:</strong></p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>業務負荷の即座軽減</li>
+                        <li>強制休憩システムの導入</li>
+                        <li>VDT環境の緊急改善</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="priority-medium">
+                <h3 style="color: #856404; margin-bottom: 20px;">🟡 早期対応必要（★★）</h3>
+                
+                <div class="action-item">
+                    <h4 style="color: #856404;">職場環境改善</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>照度改善:</strong> 300lux → 500lux以上（法定基準値）</li>
+                        <li><strong>騒音対策:</strong> 85dB → 80dB以下（労働安全衛生基準）</li>
+                        <li><strong>エルゴノミクス:</strong> 全席対応への拡大</li>
+                    </ul>
+                    <p><strong>🎯 推奨スケジュール:</strong> 2-4週間以内の段階的実施</p>
+                </div>
+                
+                <div class="action-item">
+                    <h4 style="color: #856404;">メンタルヘルス支援</h4>
+                    <p><strong>対象:</strong> 高橋係長</p>
+                    <p><strong>症状:</strong> 不眠、意欲低下、人間関係ストレス</p>
+                    <p><strong>🎯 推奨アクション:</strong></p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>専門カウンセラーへの紹介</li>
+                        <li>職場環境調整の検討</li>
+                        <li>ラインケア体制の強化</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="priority-low">
+                <h3 style="color: #155724; margin-bottom: 20px;">🔵 計画的対応（★）</h3>
+                <div class="action-item">
+                    <h4 style="color: #155724;">予防的施策</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>エルゴノミクス機器の全社展開</li>
+                        <li>空調システムの最適化</li>
+                        <li>定期的な健康教育プログラムの制度化</li>
+                    </ul>
+                    <p><strong>🎯 実施期間:</strong> 3-6ヶ月の中期計画として推進</p>
+                </div>
+            </div>
+            
+            <h3 style="color: #0078d4; margin: 30px 0 20px 0;">📊 企業健康経営レベル評価</h3>
+            <table class="evaluation-table">
+                <thead>
+                    <tr>
+                        <th>評価項目</th>
+                        <th>スコア</th>
+                        <th>判定</th>
+                        <th>備考</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>現状レベル</strong></td>
+                        <td><strong>3/5</strong></td>
+                        <td><span class="score-warning">平均的</span></td>
+                        <td>改善の余地大</td>
+                    </tr>
+                    <tr>
+                        <td>従業員健康意識</td>
+                        <td>4/5</td>
+                        <td><span class="score-good">良好 ✅</span></td>
+                        <td>教育効果期待大</td>
+                    </tr>
+                    <tr>
+                        <td>環境整備状況</td>
+                        <td>2/5</td>
+                        <td><span class="score-bad">要改善 ⚠️</span></td>
+                        <td>優先投資領域</td>
+                    </tr>
+                    <tr>
+                        <td>経営陣理解度</td>
+                        <td>4/5</td>
+                        <td><span class="score-good">良好 ✅</span></td>
+                        <td>投資意欲あり</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                <h4 style="color: #0078d4;">🎯 支援方向性</h4>
+                <ol style="line-height: 1.8;">
+                    <li><strong>短期（1-3ヶ月）:</strong> 緊急健康課題への個別対応</li>
+                    <li><strong>中期（3-6ヶ月）:</strong> 職場環境の計画的改善</li>
+                    <li><strong>長期（6-12ヶ月）:</strong> 健康経営優良法人認定取得支援</li>
+                </ol>
+            </div>
+        </div>
+        
+       <div class="tab-content">
+            <style>
+                .dashboard-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                    gap: 25px;
+                    margin: 25px 0;
+                }
+                
+                .dashboard-card {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 25px;
+                    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+                    border-top: 4px solid #0078d4;
+                    transition: transform 0.3s ease;
+                }
+                
+                .dashboard-card:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                }
+                
+                .chart-bar {
+                    display: flex;
+                    align-items: center;
+                    margin: 12px 0;
+                    font-size: 14px;
+                }
+                
+                .chart-label {
+                    width: 120px;
+                    font-weight: 500;
+                    color: #333;
+                }
+                
+                .chart-progress {
+                    flex: 1;
+                    height: 24px;
+                    background: #e9ecef;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    margin: 0 15px;
+                    position: relative;
+                }
+                
+                .chart-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #0078d4, #106ebe);
+                    border-radius: 12px;
+                    transition: width 1.5s ease-out;
+                    position: relative;
+                }
+                
+                .chart-fill::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+                    animation: shimmer 2s infinite;
+                }
+                
+                @keyframes shimmer {
+                    0% { transform: translateX(-100%); }
+                    100% { transform: translateX(100%); }
+                }
+                
+                .chart-value {
+                    font-weight: bold;
+                    color: #0078d4;
+                    min-width: 50px;
+                }
+                
+                .big-metric {
+                    text-align: center;
+                    padding: 20px;
+                    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+                    border-radius: 10px;
+                    margin: 15px 0;
+                }
+                
+                .big-metric-value {
+                    font-size: 48px;
+                    font-weight: bold;
+                    color: #0078d4;
+                    display: block;
+                    margin-bottom: 8px;
+                }
+                
+                .big-metric-label {
+                    color: #666;
+                    font-size: 14px;
+                }
+                
+                .metric-row {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 12px 0;
+                    border-bottom: 1px solid #f0f0f0;
+                }
+                
+                .metric-row:last-child {
+                    border-bottom: none;
+                }
+                
+                .metric-value {
+                    font-weight: bold;
+                    color: #0078d4;
+                    font-size: 16px;
+                }
+                
+                .trend-up { color: #28a745; }
+                .trend-down { color: #dc3545; }
+                
+                .comparison-bar {
+                    margin: 8px 0;
+                }
+                
+                .comparison-label {
+                    font-size: 13px;
+                    margin-bottom: 4px;
+                }
+                
+                .roi-highlight {
+                    background: linear-gradient(135deg, #e8f5e8, #c8e6c8);
+                    border: 2px solid #28a745;
+                    border-radius: 10px;
+                    padding: 20px;
+                    text-align: center;
+                    margin: 15px 0;
+                }
+            </style>
+            
+            <h2>📊 Power BI ダッシュボード</h2>
+            <p style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); padding: 15px; border-radius: 8px; border-left: 4px solid #ff9800;">
+                <strong>📊 データ分析:</strong> 蓄積された訪問記録をPower BIで可視化・トレンド分析
+            </p>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3 style="color: #333; margin-bottom: 20px;">📈 健康課題分析</h3>
+                    <p style="font-size: 14px; color: #666; margin-bottom: 15px;">テックソリューションズ 課題分布</p>
+                    
+                    <div class="chart-bar">
+                        <div class="chart-label">VDT関連症状</div>
+                        <div class="chart-progress">
+                            <div class="chart-fill" style="width: 45%;"></div>
+                        </div>
+                        <div class="chart-value">45%</div>
+                    </div>
+                    
+                    <div class="chart-bar">
+                        <div class="chart-label">生活習慣病</div>
+                        <div class="chart-progress">
+                            <div class="chart-fill" style="width: 20%;"></div>
+                        </div>
+                        <div class="chart-value">20%</div>
+                    </div>
+                    
+                    <div class="chart-bar">
+                        <div class="chart-label">メンタル不調</div>
+                        <div class="chart-progress">
+                            <div class="chart-fill" style="width: 15%;"></div>
+                        </div>
+                        <div class="chart-value">15%</div>
+                    </div>
+                    
+                    <div class="chart-bar">
+                        <div class="chart-label">筋骨格系</div>
+                        <div class="chart-progress">
+                            <div class="chart-fill" style="width: 12%;"></div>
+                        </div>
+                        <div class="chart-value">12%</div>
+                    </div>
+                    
+                    <div class="chart-bar">
+                        <div class="chart-label">その他</div>
+                        <div class="chart-progress">
+                            <div class="chart-fill" style="width: 8%;"></div>
+                        </div>
+                        <div class="chart-value">8%</div>
+                    </div>
+                    
+                    <div style="background: #fff8e1; padding: 10px; border-radius: 6px; margin-top: 15px; font-size: 12px;">
+                        <strong>🔍 業界比較:</strong> IT業界平均35% → 当社45% <span style="color: #d32f2f;">(+10pt)</span><br>
+                        <strong>⚠️ 判定:</strong> 要改善領域として重点対策が必要
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3 style="color: #333; margin-bottom: 20px;">📈 月別改善率トレンド</h3>
+                    
+                    <div class="big-metric">
+                        <span class="big-metric-value">78%</span>
+                        <div class="big-metric-label">今月の改善率</div>
+                    </div>
+                    
+                    <div class="metric-row">
+                        <span>眼精疲労相談</span>
+                        <span class="metric-value trend-down">↓30%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>メンタル不調相談</span>
+                        <span class="metric-value trend-down">↓25%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>肩こり相談</span>
+                        <span class="metric-value trend-down">↓18%</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3 style="color: #333; margin-bottom: 20px;">📊 活動実績サマリー（5月）</h3>
+                    
+                    <div class="metric-row">
+                        <span>訪問企業数</span>
+                        <span class="metric-value">12社</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>個別面談実施</span>
+                        <span class="metric-value">45件</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>健康教育回数</span>
+                        <span class="metric-value">8回</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>教育参加者総数</span>
+                        <span class="metric-value">240名</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>環境測定実施</span>
+                        <span class="metric-value">5箇所</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>平均満足度</span>
+                        <span class="metric-value" style="color: #28a745;">4.2/5.0</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3 style="color: #333; margin-bottom: 20px;">💰 ROI分析 - 照度改善事例</h3>
+                    
+                    <div class="metric-row">
+                        <span>初期投資額</span>
+                        <span class="metric-value">¥280,000</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>症状改善効果</span>
+                        <span class="metric-value trend-down">-30%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>生産性向上</span>
+                        <span class="metric-value trend-up">+12%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>年間効果額</span>
+                        <span class="metric-value" style="color: #28a745;">¥950,000</span>
+                    </div>
+                    
+                    <div class="roi-highlight">
+                        <div style="font-size: 14px; color: #155724; margin-bottom: 8px;">投資収益率 (ROI)</div>
+                        <div style="font-size: 36px; font-weight: bold; color: #28a745;">340%</div>
+                        <div style="font-size: 12px; color: #666; margin-top: 8px;">投資回収期間: 4ヶ月</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card" style="margin: 25px 0;">
+                <h3 style="color: #333; margin-bottom: 20px;">📈 業界比較分析</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">IT業界 健康課題発生率比較</p>
+                
+                <div class="comparison-bar">
+                    <div class="comparison-label"><strong>当社</strong></div>
+                    <div class="chart-progress" style="margin: 0;">
+                        <div class="chart-fill" style="width: 45%; background: linear-gradient(90deg, #dc3545, #e85a5a);"></div>
+                    </div>
+                    <span style="color: #dc3545; font-weight: bold; margin-left: 10px;">45%</span>
+                </div>
+                
+                <div class="comparison-bar">
+                    <div class="comparison-label">業界平均</div>
+                    <div class="chart-progress" style="margin: 0;">
+                        <div class="chart-fill" style="width: 35%; background: linear-gradient(90deg, #ffc107, #ffcd39);"></div>
+                    </div>
+                    <span style="color: #ffc107; font-weight: bold; margin-left: 10px;">35%</span>
+                </div>
+                
+                <div class="comparison-bar">
+                    <div class="comparison-label">優良企業</div>
+                    <div class="chart-progress" style="margin: 0;">
+                        <div class="chart-fill" style="width: 18%; background: linear-gradient(90deg, #28a745, #34ce57);"></div>
+                    </div>
+                    <span style="color: #28a745; font-weight: bold; margin-left: 10px;">18%</span>
+                </div>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 6px; margin-top: 15px;">
+                    <strong>🎯 改善目標:</strong> 6ヶ月で35%以下、12ヶ月で25%以下を目指す
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content">
+            <style>
+                .email-preview {
+                    background: white;
+                    border: 2px solid #ddd;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    margin: 20px 0;
+                    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+                }
+                
+                .email-header {
+                    background: linear-gradient(90deg, #f8f9fa, #e9ecef);
+                    padding: 20px;
+                    border-bottom: 1px solid #ddd;
+                }
+                
+                .email-subject {
+                    font-weight: bold;
+                    color: #333;
+                    margin-bottom: 8px;
+                    font-size: 16px;
+                }
+                
+                .email-from {
+                    color: #666;
+                    font-size: 14px;
+                    margin-bottom: 5px;
+                }
+                
+                .email-date {
+                    color: #888;
+                    font-size: 12px;
+                }
+                
+                .email-body {
+                    padding: 25px;
+                    line-height: 1.7;
+                }
+                
+                .alert-urgent {
+                    background: linear-gradient(90deg, #ffebee, #ffe6e6);
+                    border: 1px solid #f44336;
+                    border-left: 4px solid #f44336;
+                    padding: 15px;
+                    border-radius: 6px;
+                    margin: 15px 0;
+                }
+                
+                .alert-info {
+                    background: linear-gradient(90deg, #e8f5e8, #c8e6c8);
+                    border: 1px solid #4caf50;
+                    border-left: 4px solid #4caf50;
+                    padding: 15px;
+                    border-radius: 6px;
+                    margin: 15px 0;
+                }
+                
+                .metrics-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                    gap: 15px;
+                    margin: 20px 0;
+                }
+                
+                .metric-box {
+                    text-align: center;
+                    padding: 15px;
+                    background: white;
+                    border-radius: 8px;
+                    border: 1px solid #e9ecef;
+                }
+                
+                .metric-number {
+                    font-size: 28px;
+                    font-weight: bold;
+                    color: #0078d4;
+                    display: block;
+                }
+                
+                .metric-label {
+                    font-size: 12px;
+                    color: #666;
+                    margin-top: 5px;
+                }
+                
+                .alert-types {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 20px;
+                    margin: 20px 0;
+                }
+                
+                .alert-type-card {
+                    border: 1px solid #e9ecef;
+                    border-radius: 8px;
+                    padding: 20px;
+                    background: white;
+                }
+                
+                .alert-type-card h4 {
+                    margin-bottom: 15px;
+                    font-size: 16px;
+                }
+                
+                .alert-urgent-type { border-left: 4px solid #dc3545; }
+                .alert-warning-type { border-left: 4px solid #ffc107; }
+                .alert-success-type { border-left: 4px solid #28a745; }
+            </style>
+            
+            <h2>⚡ Power Automate 自動化アウトプット</h2>
+            <p style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 15px; border-radius: 8px; border-left: 4px solid #9c27b0;">
+                <strong>⚡ 自動化:</strong> 手動業務をPower Automateで自動化し、効率と精度を向上
+            </p>
+            
+            <h3 style="color: #0078d4; margin: 30px 0 20px 0;">📧 自動アラートメール例</h3>
+            
+            <div class="email-preview">
+                <div class="email-header">
+                    <div class="email-subject">🚨【緊急】産業医面談調整期限間近 - 株式会社テックソリューションズ</div>
+                    <div class="email-from">差出人: 産業保健システム &lt;alerts@health-service.com&gt;</div>
+                    <div class="email-date">送信日時: 2025年5月30日 16:30 (自動送信)</div>
+                </div>
+                <div class="email-body">
+                    <p><strong>🟢 山田保健師</strong> 様</p>
+                    <br>
+                    <p>以下のフォローアップ期限が <strong style="color: #dc3545;">3日後</strong> に迫っています：</p>
+                    
+                    <div class="alert-urgent">
+                        🔴 <strong>緊急対応必要</strong><br>
+                        ・<strong>鈴木課長の産業医面談日程調整</strong><br>
+                        期限：2025年6月10日（<span style="color: #d32f2f; font-weight: bold;">残り3日</span>）<br>
+                        血圧値: 150/95mmHg - 要緊急対応
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
+                        <p><strong>📋 次のアクション：</strong></p>
+                        <ol style="margin: 10px 0 10px 20px; line-height: 1.6;">
+                            <li>✅ 産業医（田村医師）スケジュール確認済み</li>
+                            <li>⏳ 企業側担当者（田中部長）への連絡 - 要実施</li>
+                            <li>⏳ 面談日程の最終調整</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="alert-info">
+                        <p><strong>💡 推奨面談日時：</strong></p>
+                        <p>・6月5日（月）14:00-15:00<br>
+                        ・6月6日（火）10:00-11:00<br>
+                        ・6月7日（水）15:00-16:00</p>
+                    </div>
+                    
+                    <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+                    <p style="font-size: 12px; color: #666;">
+                        📧 このメールは産業保健管理システムより自動送信されています。<br>
+                        返信不要です。対応完了後は管理画面より状況を更新してください。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="email-preview">
+                <div class="email-header">
+                    <div class="email-subject">📊【月次レポート】2025年5月 産業保健活動サマリー</div>
+                    <div class="email-from">差出人: 産業保健システム &lt;reports@health-service.com&gt;</div>
+                    <div class="email-date">送信日時: 2025年5月31日 09:00 (自動送信)</div>
+                </div>
+                <div class="email-body">
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <h3 style="color: #0078d4; margin: 0;">5月度 産業保健活動レポート</h3>
+                        <p style="color: #666; margin: 5px 0; font-size: 14px;">Industrial Health Service Monthly Report</p>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h4 style="color: #0078d4; margin-bottom: 15px;">📊 活動実績サマリー</h4>
+                        <div class="metrics-grid">
+                            <div class="metric-box">
+                                <span class="metric-number">12</span>
+                                <div class="metric-label">訪問企業数</div>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-number">45</span>
+                                <div class="metric-label">個別面談</div>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-number">8</span>
+                                <div class="metric-label">健康教育</div>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-number">240</span>
+                                <div class="metric-label">参加者総数</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <h4 style="color: #dc3545; margin-bottom: 10px;">⚠️ 重要課題・トレンド</h4>
+                        <ul style="line-height: 1.6; padding-left: 20px;">
+                            <li><strong>IT業界でのVDT症状増加傾向</strong>（前月比+15%）<br>
+                                → 緊急対策：照度改善・エルゴノミクス導入を推奨</li>
+                            <li><strong>製造業の騒音問題</strong>が2社で新規発見<br>
+                                → 即座に測定・改善提案を実施済み</li>
+                            <li><strong>管理職層の生活習慣病リスク上昇</strong><br>
+                                → 産業医面談の積極的活用を推進中</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="alert-info">
+                        <h4 style="color: #28a745; margin-bottom: 10px;">✅ 改善効果・成果</h4>
+                        <ul style="line-height: 1.6; padding-left: 20px;">
+                            <li><strong>照度改善により眼精疲労相談が平均30%減少</strong><br>
+                                投資効果：ROI 340%を達成</li>
+                            <li><strong>ストレス研修実施企業で満足度4.2/5.0達成</strong><br>
+                                メンタル不調相談が25%減少</li>
+                            <li><strong>エルゴノミクス椅子導入企業で肩こり相談70%減</strong><br>
+                                従業員満足度85%を記録</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #fff8e1; padding: 15px; border-radius: 6px; margin: 20px 0;">
+                        <h4 style="color: #856404; margin-bottom: 10px;">🎯 来月重点項目</h4>
+                        <ul style="line-height: 1.6; padding-left: 20px;">
+                            <li>VDT作業環境改善の標準化</li>
+                            <li>製造業向け騒音対策プログラム開発</li>
+                            <li>管理職向けヘルスリテラシー向上研修</li>
+                        </ul>
+                    </div>
+                    
+                    <hr style="margin: 25px 0; border: none; border-top: 2px solid #0078d4;">
+                    <div style="text-align: center; color: #666; font-size: 12px;">
+                        <p>📞 お問い合わせ：産業保健サービス部 03-XXXX-XXXX</p>
+                        <p>🌐 詳細データは Power BI ダッシュボード でご確認いただけます</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="color: #0078d4; margin: 30px 0 20px 0;">🔔 自動アラート設定一覧</h3>
+            <div class="alert-types">
+                <div class="alert-type-card alert-urgent-type">
+                    <h4 style="color: #dc3545;">🚨 緊急アラート</h4>
+                    <ul style="font-size: 14px; line-height: 1.5; padding-left: 20px;">
+                        <li>血圧値150/95以上の検出</li>
+                        <li>フォローアップ期限3日前</li>
+                        <li>騒音レベル85dB超過</li>
+                        <li>メンタル不調の重篤化兆候</li>
+                    </ul>
+                </div>
+                <div class="alert-type-card alert-warning-type">
+                    <h4 style="color: #856404;">⚠️ 注意アラート</h4>
+                    <ul style="font-size: 14px; line-height: 1.5; padding-left: 20px;">
+                        <li>同種課題の3件以上発生</li>
+                        <li>改善率の大幅低下</li>
+                        <li>健康教育満足度3.0以下</li>
+                        <li>企業要望の未対応1週間</li>
+                    </ul>
+                </div>
+                <div class="alert-type-card alert-success-type">
+                    <h4 style="color: #28a745;">📈 成果アラート</h4>
+                    <ul style="font-size: 14px; line-height: 1.5; padding-left: 20px;">
+                        <li>改善率30%以上達成</li>
+                        <li>ROI300%以上確認</li>
+                        <li>満足度4.5以上獲得</li>
+                        <li>健康経営認定取得可能性</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+       <div class="tab-content">
+            <style>
+                .teams-chat {
+                    background: linear-gradient(135deg, #464775, #5b5d8a);
+                    color: white;
+                    padding: 25px;
+                    border-radius: 12px;
+                    margin: 20px 0;
+                    box-shadow: 0 4px 16px rgba(70,71,117,0.3);
+                }
+                
+                .teams-header {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid rgba(255,255,255,0.2);
+                }
+                
+                .teams-title {
+                    flex: 1;
+                    font-size: 18px;
+                    font-weight: 600;
+                }
+                
+                .online-count {
+                    background: rgba(255,255,255,0.2);
+                    padding: 5px 12px;
+                    border-radius: 15px;
+                    font-size: 12px;
+                    backdrop-filter: blur(10px);
+                }
+                
+                .chat-message {
+                    margin: 20px 0;
+                    padding: 15px 20px;
+                    background: rgba(255,255,255,0.1);
+                    border-radius: 12px;
+                    backdrop-filter: blur(10px);
+                    transition: background 0.3s;
+                }
+                
+                .chat-message:hover {
+                    background: rgba(255,255,255,0.15);
+                }
+                
+                .chat-author {
+                    font-weight: bold;
+                    color: #a6c8ff;
+                    margin-bottom: 8px;
+                    font-size: 15px;
+                }
+                
+                .chat-time {
+                    font-size: 12px;
+                    opacity: 0.7;
+                    margin-left: 10px;
+                }
+                
+                .knowledge-base {
+                    background: white;
+                    padding: 25px;
+                    border-radius: 12px;
+                    border-left: 4px solid #7719aa;
+                    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+                    margin: 20px 0;
+                }
+                
+                .knowledge-base h3 {
+                    color: #7719aa;
+                    margin-bottom: 20px;
+                    font-size: 18px;
+                }
+                
+                .knowledge-section {
+                    margin-bottom: 25px;
+                }
+                
+                .knowledge-section h4 {
+                    color: #333;
+                    margin: 15px 0 10px 0;
+                    font-size: 15px;
+                }
+                
+                .knowledge-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 15px 0;
+                    background: #f8f9fa;
+                    border-radius: 8px;
+                    overflow: hidden;
+                }
+                
+                .knowledge-table th,
+                .knowledge-table td {
+                    padding: 12px 15px;
+                    text-align: left;
+                    border-bottom: 1px solid #e9ecef;
+                }
+                
+                .knowledge-table th {
+                    background: #7719aa;
+                    color: white;
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+                
+                .success-cases {
+                    background: linear-gradient(135deg, #e8f5e8, #c8e6c8);
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin: 20px 0;
+                }
+                
+                .success-case {
+                    background: white;
+                    padding: 15px;
+                    border-radius: 6px;
+                    margin: 10px 0;
+                    border-left: 4px solid #28a745;
+                }
+                
+                .search-demo {
+                    background: #f0f8ff;
+                    border: 1px solid #0078d4;
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin: 20px 0;
+                }
+                
+                .search-query {
+                    background: linear-gradient(90deg, #e3f2fd, #bbdefb);
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                    font-weight: 500;
+                    border-left: 4px solid #2196f3;
+                }
+                
+                .search-result {
+                    border: 1px solid #e9ecef;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin: 15px 0;
+                    background: white;
+                    transition: all 0.3s ease;
+                }
+                
+                .search-result:hover {
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    border-color: #0078d4;
+                    transform: translateY(-2px);
+                }
+                
+                .search-result-title {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    font-weight: 600;
+                    color: #0078d4;
+                }
+                
+                .search-result-content {
+                    color: #666;
+                    line-height: 1.6;
+                    margin: 10px 0;
+                }
+                
+                .search-tags {
+                    margin: 8px 0;
+                    font-size: 12px;
+                    color: #0078d4;
+                }
+                
+                .insights-box {
+                    background: linear-gradient(135deg, #fff8e1, #fff3cd);
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin-top: 20px;
+                    border-left: 4px solid #ffc107;
+                }
+            </style>
+            
+            <h2>👥 Microsoft Teams 連携機能</h2>
+            <p style="background: linear-gradient(135deg, #e8eaf6, #c5cae9); padding: 15px; border-radius: 8px; border-left: 4px solid #3f51b5;">
+                <strong>👥 チーム協力:</strong> Teamsでリアルタイム相談・知識共有・ベストプラクティス蓄積
+            </p>
+            
+            <h3 style="color: #0078d4; margin: 30px 0 20px 0;">💬 チャット画面例</h3>
+            
+            <div class="teams-chat">
+                <div class="teams-header">
+                    <div class="teams-title">💬 #産業保健師チーム</div>
+                    <div class="online-count">オンライン: 5名</div>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="chat-author">👩‍⚕️ 山田保健師<span class="chat-time">今日 15:30</span></div>
+                    <p>テックソリューションズでVDT症状の相談が多かったです。📊<br>
+                    20-20-20ルールの指導をしましたが、他に効果的な方法ありますか？<br>
+                    特に佐藤主任のケースが深刻で、頭痛まで発症しています。</p>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="chat-author">👨‍⚕️ 田中保健師<span class="chat-time">今日 15:35</span></div>
+                    <p>私の担当企業では「ポモドーロテクニック」と組み合わせて<br>
+                    25分作業→5分休憩のサイクルで目の休息を取らせています。🍅<br>
+                    効果的でしたよ！実践率も70%くらいまで上がりました。</p>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="chat-author">👩‍⚕️ 佐藤保健師<span class="chat-time">今日 15:40</span></div>
+                    <p>@山田保健師 SharePointの「VDT対策事例集」に<br>
+                    照度改善で30%症状改善した事例をアップしました。📂<br>
+                    参考にしてください！A社の改善事例が特に参考になると思います。</p>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="chat-author">👩‍⚕️ 山田保健師<span class="chat-time">今日 15:42</span></div>
+                    <p>ありがとうございます！来週のフォローアップで提案してみます 👍<br>
+                    ポモドーロテクニックも合わせて指導しますね。</p>
+                </div>
+                
+                <div class="chat-message">
+                    <div class="chat-author">👨‍⚕️ 鈴木チームリーダー<span class="chat-time">今日 15:45</span></div>
+                    <p>皆さんお疲れ様です！📢<br>
+                    明日のチーム会議でVDT対策の標準化について議論しましょう。<br>
+                    山田さんの事例を中心に、IT企業向けパッケージを検討したいと思います。</p>
+                </div>
+            </div>
+            
+            <h3 style="color: #0078d4; margin: 30px 0 20px 0;">📚 OneNote: 共有ナレッジベース</h3>
+            
+            <div class="knowledge-base">
+                <h3>💡 VDT作業対策 実証済みソリューション集</h3>
+                
+                <div class="knowledge-section">
+                    <h4>🌟 1. 環境改善対策</h4>
+                    <table class="knowledge-table">
+                        <thead>
+                            <tr>
+                                <th>対策項目</th>
+                                <th>改善内容</th>
+                                <th>効果</th>
+                                <th>投資回収</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>照度改善</strong></td>
+                                <td>300lux → 500lux</td>
+                                <td>症状30%減</td>
+                                <td>ROI 340%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>モニター配置</strong></td>
+                                <td>50-70cm、上端目線以下</td>
+                                <td>満足度4.2/5</td>
+                                <td>3ヶ月</td>
+                            </tr>
+                            <tr>
+                                <td><strong>反射防止</strong></td>
+                                <td>ブラインド・フィルム</td>
+                                <td>眼精疲労25%減</td>
+                                <td>2ヶ月</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="knowledge-section">
+                    <h4>⏰ 2. 行動指導テクニック</h4>
+                    <ul style="line-height: 1.6; padding-left: 20px;">
+                        <li><strong>✅ 20-20-20ルール:</strong> 20分毎に20秒間20フィート先を見る<br>
+                            <span style="color: #666; font-size: 13px;">実践率: 70% / 症状軽減: 効果確認済み</span></li>
+                        <li><strong>✅ ポモドーロテクニック併用:</strong> 25分作業 → 5分休憩サイクル<br>
+                            <span style="color: #666; font-size: 13px;">集中力向上: +15% / 疲労軽減: 顕著</span></li>
+                        <li><strong>✅ 意識的まばたき増加:</strong> 1分間15-20回を意識的に実施<br>
+                            <span style="color: #666; font-size: 13px;">ドライアイ改善率: 40%</span></li>
+                    </ul>
+                </div>
+                
+                <div class="knowledge-section">
+                    <h4>🪑 3. 機器・設備導入</h4>
+                    <ul style="line-height: 1.6; padding-left: 20px;">
+                        <li><strong>エルゴノミクス椅子:</strong> 満足度85%、肩こり70%減</li>
+                        <li><strong>モニターアーム:</strong> 首の負担60%軽減</li>
+                        <li><strong>ブルーライトカット眼鏡:</strong> 効果実感率78%</li>
+                    </ul>
+                </div>
+                
+                <div class="success-cases">
+                    <h4 style="color: #28a745;">🏆 企業別成功事例ハイライト</h4>
+                    
+                    <div class="success-case">
+                        <strong>🥇 A社（従業員150名）:</strong> 照度改善で相談件数50%減<br>
+                        <span style="color: #666; font-size: 13px;">期間: 3ヶ月 / 投資: ¥180,000 / ROI: 420%</span>
+                    </div>
+                    
+                    <div class="success-case">
+                        <strong>🥈 B社（従業員80名）:</strong> 椅子交換で肩こり相談70%減<br>
+                        <span style="color: #666; font-size: 13px;">期間: 2ヶ月 / 投資: ¥320,000 / 満足度: 4.8/5</span>
+                    </div>
+                    
+                    <div class="success-case">
+                        <strong>🥉 C社（従業員200名）:</strong> 総合対策で満足度90%達成<br>
+                        <span style="color: #666; font-size: 13px;">期間: 6ヶ月 / 健康経営優良法人認定取得</span>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="color: #0078d4; margin: 30px 0 20px 0;">🔍 SharePoint 検索デモ</h3>
+            
+            <div class="search-demo">
+                <div class="search-query">
+                    🔍 <strong>「眼精疲労 対策」で検索した結果</strong> - 15件中上位3件を表示
+                </div>
+                
+                <div class="search-result">
+                    <div class="search-result-title">
+                        📄 <strong>株式会社テックソリューションズ_2025年5月30日.docx</strong>
+                    </div>
+                    <div class="search-result-content">
+                        VDT作業による眼精疲労・肩こりが慢性化。佐藤主任は頭痛も頻発し集中力低下を訴え...<br>
+                        20-20-20ルール指導実施、参加者32名で満足度4.3/5点を達成
+                    </div>
+                    <div class="search-tags">
+                        関連タグ: #VDT症候群 #健康教育 #IT企業 #眼精疲労
+                    </div>
+                </div>
+                
+                <div class="search-result">
+                    <div class="search-result-title">
+                        📄 <strong>ABC商事株式会社_2025年5月15日.docx</strong>
+                    </div>
+                    <div class="search-result-content">
+                        照度300lux→500luxに改善後、眼精疲労症状が30%減少を確認...<br>
+                        エルゴノミクス椅子導入により肩こり症状も大幅改善、従業員満足度85%
+                    </div>
+                    <div class="search-tags">
+                        関連タグ: #照度改善 #エルゴノミクス #成功事例 #ROI340%
+                    </div>
+                </div>
+                
+                <div class="search-result">
+                    <div class="search-result-title">
+                        📄 <strong>製造業D社_2025年4月20日.docx</strong>
+                    </div>
+                    <div class="search-result-content">
+                        事務部門でブルーライトカット眼鏡を全員配布、夕方疲労感大幅軽減<br>
+                        効果実感率78%を記録
+                    </div>
+                    <div class="search-tags">
+                        関連タグ: #ブルーライト対策 #製造業 #疲労軽減
+                    </div>
+                </div>
+                
+                <div class="insights-box">
+                    <strong>💡 AI による関連する改善事例の分析結果:</strong>
+                    <ul style="margin: 12px 0 0 20px; line-height: 1.6;">
+                        <li><strong>照度改善:</strong> 平均30%症状軽減（12社で実証済み）</li>
+                        <li><strong>エルゴノミクス:</strong> 満足度平均85%、投資回収8ヶ月</li>
+                        <li><strong>20-20-20ルール:</strong> 実践率70%で顕著効果</li>
+                        <li><strong>推奨:</strong> テックソリューションズには照度+椅子の組み合わせ提案（予想改善率45%）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(index) {
+            // すべてのタブコンテンツを非表示
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // すべてのタブボタンから active を削除
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // 選択されたタブを表示
+            contents[index].classList.add('active');
+            tabs[index].classList.add('active');
+        }
+    </script>
+</body>
+</html>
